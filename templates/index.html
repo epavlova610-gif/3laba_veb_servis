@@ -1,32 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Лабораторная 3 — Вариант 17</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вариант 17 — Обмен полос</title>
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <h1>Вариант 17: Обмен чередующихся полос</h1>
-    <form method="post" enctype="multipart/form-data">
-        <p>
-            <label>Направление: 
-                <select name="direction">
-                    <option value="horizontal">Горизонтально</option>
-                    <option value="vertical">Вертикально</option>
-                </select>
-            </label>
-        </p>
-        <p>
-            <label>Ширина полосы (пиксели): 
-                <input type="number" name="strip_width" value="20" min="1" required>
-            </label>
-        </p>
-        <p>
-            <label>Изображение: 
-                <input type="file" name="file" accept="image/*" required>
-            </label>
-        </p>
-        <button type="submit">Обработать</button>
-    </form>
+    <div class="container">
+        <header>
+            <h1>🎨 Вариант 17: Обмен чередующихся полос</h1>
+            <p class="subtitle">Изменение изображения путём перестановки чётных и нечётных полос</p>
+        </header>
+
+        <main>
+            <section class="card">
+                <h2>📥 Загрузите изображение</h2>
+                <form method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="direction">Направление перестановки:</label>
+                        <select name="direction" id="direction" required>
+                            <option value="horizontal">↔️ Горизонтально</option>
+                            <option value="vertical">↕️ Вертикально</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="strip_width">Ширина полосы (пиксели):</label>
+                        <input type="number" name="strip_width" id="strip_width" value="20" min="1" max="200" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="file">Изображение (JPG/PNG):</label>
+                        <input type="file" name="file" id="file" accept="image/*" required>
+                    </div>
+
+                    <button type="submit" class="btn animate-pulse">
+                        🔄 Обработать изображение
+                    </button>
+                </form>
+            </section>
+        </main>
+    </div>
 </body>
 </html>

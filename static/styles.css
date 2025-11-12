@@ -1,8 +1,227 @@
-body { font-family: Arial, sans-serif; margin: 2rem; }
-h1, h2 { color: #2c3e50; }
-form { background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
-input, select, button { margin: 0.3rem; padding: 0.4rem; }
-img { max-width: 100%; height: auto; }
-table { border-collapse: collapse; margin-top: 1rem; }
-td, th { border: 1px solid #ccc; padding: 0.5rem; }
-.center { text-align: center; }
+/* 🌹 Темная тема с чёрным фоном и красными цветочками */
+:root {
+    --bg: #0a0a0a;
+    --surface: rgba(20, 20, 25, 0.85);
+    --text: #f8f9fa;
+    --accent: #e63946;      /* красный цветок */
+    --accent-light: #ff5252;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    --radius: 16px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* 🌸 SVG-цветы как фон */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: 
+        /* Цветок 1 (SVG path) */
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='12' fill='%23e63946'/%3E%3Ccircle cx='30' cy='40' r='8' fill='%23e63946'/%3E%3Ccircle cx='70' cy='40' r='8' fill='%23e63946'/%3E%3Ccircle cx='45' cy='70' r='8' fill='%23e63946'/%3E%3Ccircle cx='55' cy='25' r='6' fill='%23e63946'/%3E%3C/svg%3E"),
+        /* Цветок 2 (повторяющийся узор) */
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='%23ff5252' opacity='0.15'%3E%3Ccircle cx='20' cy='20' r='6'/%3E%3Ccircle cx='80' cy='40' r='4'/%3E%3Ccircle cx='40' cy='90' r='5'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 150px 150px, 200px 200px;
+    background-position: 10% 20%, 75% 60%;
+    background-repeat: no-repeat, repeat;
+    z-index: -2;
+    pointer-events: none;
+}
+
+/* Доп. мягкий градиент поверх */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(230, 57, 70, 0.03), transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 82, 82, 0.02), transparent 50%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 24px;
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--accent);
+    backdrop-filter: blur(8px);
+}
+
+h1 {
+    font-size: 2.6rem;
+    color: var(--accent-light);
+    margin-bottom: 12px;
+    font-weight: 800;
+    text-shadow: 0 0 10px rgba(230, 57, 70, 0.3);
+}
+
+h2 {
+    font-size: 1.8rem;
+    color: #fff;
+    margin: 24px 0 16px;
+    font-weight: 600;
+}
+
+p.subtitle {
+    color: #bbb;
+    font-size: 1.1rem;
+}
+
+/* Карточка формы */
+.card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(230, 57, 70, 0.1);
+}
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #e0e0e0;
+}
+
+input[type="number"],
+select,
+input[type="file"] {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    font-size: 1.05rem;
+    background: rgba(30, 30, 35, 0.7);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+input[type="number"]:focus,
+select:focus,
+input[type="file"]:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.3);
+}
+
+.btn {
+    background: linear-gradient(135deg, var(--accent), #c1121f);
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 6px 16px rgba(230, 57, 70, 0.4);
+}
+
+.btn:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 10px 24px rgba(230, 57, 70, 0.6);
+    background: linear-gradient(135deg, #c1121f, var(--accent));
+}
+
+.btn:active {
+    transform: translateY(0) scale(1);
+}
+
+/* Результаты — карточки */
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 26px;
+    margin-top: 24px;
+}
+
+.result-card {
+    background: rgba(25, 25, 30, 0.9);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    transition: transform 0.4s, box-shadow 0.4s;
+    border: 1px solid rgba(230, 57, 70, 0.2);
+}
+
+.result-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(230, 57, 70, 0.25);
+}
+
+.result-card h3 {
+    background: linear-gradient(to right, var(--accent), #ff7b86);
+    color: white;
+    padding: 14px 20px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.result-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 320px;
+    object-fit: contain;
+    background: #111;
+    padding: 20px;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent-light);
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 24px;
+    font-size: 1.1rem;
+    transition: all 0.2s;
+}
+
+.back-link:hover {
+    color: white;
+    text-shadow: 0 0 8px rgba(255, 82, 82, 0.6);
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+    h1 { font-size: 2.1rem; }
+    .card { padding: 20px 16px; }
+    .btn { padding: 14px 24px; font-size: 1.05rem; }
+    .result-grid { grid-template-columns: 1fr; }
+}

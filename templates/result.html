@@ -1,25 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Результат</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✅ Результат обработки</title>
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <h1>Результат обработки</h1>
-    <table>
-        <tr>
-            <th>Исходное</th>
-            <th>Обработанное</th>
-            <th>Гистограмма RGB</th>
-        </tr>
-        <tr>
-            <td><img src="{{ original_url }}" width="200"></td>
-            <td><img src="{{ result_url }}" width="200"></td>
-            <td><img src="{{ hist_url }}" width="300"></td>
-        </tr>
-    </table>
-    <br><br>
-    <a href="/">← Вернуться к форме</a>
+    <div class="container">
+        <header>
+            <h1>✅ Результат обработки</h1>
+            <p class="subtitle">Исходное изображение, обработанное и гистограмма RGB</p>
+        </header>
+
+        <main>
+            <div class="result-grid">
+                <div class="result-card">
+                    <h3>📷 Исходное</h3>
+                    <img src="{{ original_url }}" alt="Исходное изображение">
+                </div>
+
+                <div class="result-card">
+                    <h3>✨ Обработанное</h3>
+                    <img src="{{ result_url }}" alt="Обработанное изображение">
+                </div>
+
+                <div class="result-card">
+                    <h3>📊 Гистограмма RGB</h3>
+                    <img src="{{ hist_url }}" alt="Гистограмма распределения цветов">
+                </div>
+            </div>
+
+            <a href="/" class="back-link">
+                ← Вернуться к загрузке
+            </a>
+        </main>
+    </div>
 </body>
 </html>
