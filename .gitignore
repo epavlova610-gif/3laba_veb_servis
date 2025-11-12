@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.Python
+env/
+venv/
+pipenv*
+.DS_Store
+.env
+static/uploaded_*
+static/histogram_*
+.git

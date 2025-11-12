@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Результат</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Результат обработки</h1>
+    <table>
+        <tr>
+            <th>Исходное</th>
+            <th>Обработанное</th>
+            <th>Гистограмма RGB</th>
+        </tr>
+        <tr>
+            <td><img src="{{ original_url }}" width="200"></td>
+            <td><img src="{{ result_url }}" width="200"></td>
+            <td><img src="{{ hist_url }}" width="300"></td>
+        </tr>
+    </table>
+    <br><br>
+    <a href="/">← Вернуться к форме</a>
+</body>
+</html>
