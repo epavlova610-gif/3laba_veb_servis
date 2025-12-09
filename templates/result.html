@@ -31,6 +31,17 @@
                 </div>
             </div>
 
+            {% if classification %}
+            <section class="card">
+                <h3>🔎 Результат классификации</h3>
+                <ul>
+                    {% for label, score in classification %}
+                    <li>{{ label }} — {{ '%.3f'|format(score) }}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+            {% endif %}
+
             <a href="/" class="back-link">
                 ← Вернуться к загрузке
             </a>

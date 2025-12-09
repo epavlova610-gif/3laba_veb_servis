@@ -1,3 +1,10 @@
 fastapi==0.104.1
 uvicorn==0.30.1
 python-multipart==0.0.9
+Pillow>=9.0.0
+numpy>=1.24.0
+matplotlib>=3.6.0
+# TensorFlow добавляется опционально — установка может занять много места
+# Если хотите использовать классификацию нейросетью, установите tensorflow в окружение:
+# pip install tensorflow
+tensorflow>=2.12.0

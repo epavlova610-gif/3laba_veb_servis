@@ -35,6 +35,22 @@
                         <input type="file" name="file" id="file" accept="image/*" required>
                     </div>
 
+                    <div class="form-group captcha-block">
+                        <label>CAPTCHA: введите символы с картинки</label>
+                        <div style="display:flex;align-items:center;gap:8px;">
+                            <img id="captcha_img" src="/captcha/{{ captcha_uid }}.png" alt="captcha">
+                            <button type="button" onclick="reloadCaptcha()" class="btn small">↻</button>
+                        </div>
+                        <input type="hidden" name="captcha_uid" value="{{ captcha_uid }}">
+                        <input type="text" name="captcha" required placeholder="Введите код">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="classify">
+                            <input type="checkbox" name="classify" id="classify"> Выполнить классификацию (NN)
+                        </label>
+                    </div>
+
                     <button type="submit" class="btn animate-pulse">
                         🔄 Обработать изображение
                     </button>
@@ -42,5 +58,12 @@
             </section>
         </main>
     </div>
+    <script>
+        function reloadCaptcha(){
+            const img = document.getElementById('captcha_img');
+            const src = img.src.split('?')[0];
+            img.src = src + '?r=' + Date.now();
+        }
+    </script>
 </body>
 </html>
