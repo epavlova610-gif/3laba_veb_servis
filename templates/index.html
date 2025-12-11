@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вариант 17 — Обмен полос</title>
     <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <div class="container">
@@ -50,7 +51,7 @@
                             <input type="checkbox" name="classify" id="classify"> Выполнить классификацию (NN)
                         </label>
                     </div>
-
+                    <div class="g-recaptcha" data-sitekey="6Le95iUsAAAAAK-2qlmqVh96NBmCTLc6TilZhx8y"></div>
                     <button type="submit" class="btn animate-pulse">
                         🔄 Обработать изображение
                     </button>
@@ -58,12 +59,5 @@
             </section>
         </main>
     </div>
-    <script>
-        function reloadCaptcha(){
-            const img = document.getElementById('captcha_img');
-            const src = img.src.split('?')[0];
-            img.src = src + '?r=' + Date.now();
-        }
-    </script>
 </body>
 </html>
