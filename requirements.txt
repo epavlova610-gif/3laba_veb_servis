@@ -8,3 +8,10 @@ matplotlib>=3.6.0
 # Если хотите использовать классификацию нейросетью, установите tensorflow в окружение:
 # pip install tensorflow
 tensorflow>=2.12.0
+
+# Для тестов
+pytest
+httpx
+
+ruff
+black
