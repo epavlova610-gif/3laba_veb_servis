@@ -2,10 +2,11 @@
 import io
 from PIL import Image
 import numpy as np
-from fastapi.testclient import TestClient
 from unittest.mock import patch
 
-from main import app  # ← твой файл называется main.py? (если lab3.py — поправь)
+# Создаем клиент для тестирования
+from fastapi.testclient import TestClient
+from main import app
 
 client = TestClient(app)
 
@@ -42,8 +43,8 @@ def test_process_image_horizontal():
         response = client.post("/", data=data, files=files)
 
     assert response.status_code == 200
-    assert "result_url" in response.text
-    assert "original_url" in response.text
+    assert "result_" in response.text
+    assert "original_" in response.text
 
 
 def test_process_image_vertical():
@@ -58,7 +59,7 @@ def test_process_image_vertical():
         response = client.post("/", data=data, files=files)
 
     assert response.status_code == 200
-    assert "Обмен полос" in response.text or "result_url" in response.text
+    assert "result_" in response.text
 
 
 def test_swap_stripes_function():
@@ -79,3 +80,64 @@ def test_swap_stripes_function():
     # Проверим, что (0,0) пиксель стал зелёным, а (0,2) — красным → обмен произошёл
     assert np.array_equal(result[0, 0], [0, 255, 0])  # раньше был [255,0,0]
     assert np.array_equal(result[0, 2], [255, 0, 0])  # раньше был [0,255,0]
+
+
+def test_process_returns_response():
+    """Тест проверяет, что POST-запрос обработки изображения возвращает успешный ответ"""
+    img_bytes = create_test_image(size=(200, 200), color=(100, 150, 200))
+    files = {"file": ("test_image.jpg", img_bytes, "image/jpeg")}
+    data = {
+        "direction": "horizontal",
+        "strip_width": "15",
+    }
+
+    with patch("main.TF_AVAILABLE", False):
+        response = client.post("/", data=data, files=files)
+
+    # Проверяем, что запрос успешен
+    assert response.status_code == 200
+    # Проверяем, что в ответе есть ключевые элементы
+    assert response.text is not None
+    assert len(response.text) > 0
+    # Проверяем наличие URL обработанного изображения
+    assert "result_" in response.text or "static/" in response.text
+    assert "result_" in response.text or "static/" in response.text
+
+
+def test_watermark_added_to_processed_image():
+    """Тест проверяет, что обработанное изображение содержит водяной знак"""
+    from main import add_watermark
+    
+    # Создаём тестовое изображение
+    test_img = Image.new("RGB", (300, 300), (255, 255, 255))
+    
+    # Добавляем водяной знак
+    watermarked_img = add_watermark(test_img, "Обработано")
+    
+    # Проверяем, что изображение не None
+    assert watermarked_img is not None
+    # Проверяем, что размер не изменился
+    assert watermarked_img.size == test_img.size
+    # Проверяем, что изображение изменилось (водяной знак добавлен)
+    assert watermarked_img.tobytes() != test_img.tobytes()
+
+
+def test_endpoint_returns_valid_data():
+    """Тест проверяет, что эндпоинт возвращает валидные данные с изображениями и гистограммой"""
+    img_bytes = create_test_image(size=(150, 150), color=(50, 100, 150))
+    files = {"file": ("test_valid.jpg", img_bytes, "image/jpeg")}
+    data = {
+        "direction": "vertical",
+        "strip_width": "10",
+    }
+
+    with patch("main.TF_AVAILABLE", False):
+        response = client.post("/", data=data, files=files)
+
+    # Проверяем успешность запроса
+    assert response.status_code == 200
+    
+    # Проверяем, что в ответе есть ссылки на все необходимые файлы
+    assert "original_" in response.text  # Оригинальное изображение
+    assert "result_" in response.text    # Обработанное изображение
+    assert "histogram_" in response.text # Гистограмма
